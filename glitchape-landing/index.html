@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlitchApe ($GLA) - We don't just ape in. We glitch in.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-blue: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff00;
+            --dark-bg: #0a0a0f;
+            --dark-card: #1a1a2e;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .glitch-font {
+            font-family: 'Orbitron', monospace;
+        }
+
+        .glitch-text {
+            position: relative;
+            color: var(--neon-blue);
+            font-weight: 900;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            animation: glitch-1 2s infinite;
+            color: var(--neon-pink);
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            animation: glitch-2 2s infinite;
+            color: var(--neon-green);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, 2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        .neon-border {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .btn-glitch {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+            border: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glitch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--neon-pink);
+        }
+
+        .btn-glitch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-glitch:hover::before {
+            left: 100%;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .market-data {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--neon-blue);
+        }
+
+        .roadmap-phase {
+            border-left: 3px solid var(--neon-blue);
+            position: relative;
+        }
+
+        .roadmap-phase::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .tokenomics-chart {
+            background: conic-gradient(
+                var(--neon-blue) 0deg 324deg,
+                var(--neon-pink) 324deg 342deg,
+                var(--neon-green) 342deg 360deg
+            );
+        }
+
+        .founder-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 30px var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .founder-avatar:hover {
+            box-shadow: 0 0 50px var(--neon-pink);
+            border-color: var(--neon-pink);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-md border-b border-cyan-500">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="glitch-font text-2xl font-bold text-cyan-400">GlitchApe</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                    <a href="#fair-launch" class="hover:text-cyan-400 transition-colors">Fair Launch</a>
+                    <a href="#roadmap" class="hover:text-cyan-400 transition-colors">Roadmap</a>
+                    <a href="#whitepaper" class="hover:text-cyan-400 transition-colors">Whitepaper</a>
+                </div>
+                <button class="btn-glitch px-6 py-2 rounded-lg">Launching 7PM EST</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative cyber-grid">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-black/50"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <!-- Slideshow -->
+            <div class="slideshow-container mb-8" data-aos="fade-up">
+                <div class="slide active">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_dbw3gc.jpg-SllXvtHTWgLbRmzTWRpIpzgFgiGoYj.jpeg" alt="GlitchApe" class="w-64 h-64 mx-auto rounded-full neon-border floating">
+                </div>
+                <div class="slide">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_xx2jtxb.jpg-rRaKxe158A1YPaFZaf5Zyno5qxsicT.jpeg" alt="GlitchApe" class="w-64 h-64 mx-auto rounded-full neon-border floating">
+                </div>
+                <div class="slide">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_xa2p9y8.jpg-alNNOMN2b8eduMW97tpE0cyfS409XR.jpeg" alt="GlitchApe" class="w-64 h-64 mx-auto rounded-full neon-border floating">
+                </div>
+                <div class="slide">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_xu3zdes.jpg-EdKDOBS5OXUrDBnH1N1rmypb3n2MxP.jpeg" alt="GlitchApe" class="w-64 h-64 mx-auto rounded-full neon-border floating">
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="glitch-text glitch-font text-6xl md:text-8xl mb-4" data-text="GLITCHAPE" data-aos="fade-up" data-aos-delay="200">
+                GLITCHAPE
+            </h1>
+            <!-- Ticker -->
+            <p class="text-2xl md:text-3xl mb-2 text-cyan-400" data-aos="fade-up" data-aos-delay="400">($GLA)</p>
+            <p class="text-xl md:text-2xl mb-8 text-pink-400" data-aos="fade-up" data-aos-delay="600">
+                We don't just ape in. We glitch in.
+            </p>
+
+            <!-- Launch Announcement -->
+            <div class="market-data rounded-lg p-6 mb-8 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="800">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-4">LAUNCHING SOON</div>
+                    <div class="text-2xl text-cyan-400 mb-2">7:00 PM EST</div>
+                    <div class="text-lg text-gray-400">Total Supply: 1,000,000,000 $GLA</div>
+                </div>
+            </div>
+
+            <!-- Launch Button -->
+            <button class="btn-glitch px-12 py-4 text-xl rounded-lg" data-aos="fade-up" data-aos-delay="1000">
+                Get Ready for Launch
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-black to-purple-900/20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="glitch-font text-4xl md:text-6xl mb-8 text-cyan-400" data-aos="fade-up">
+                    The Glitch Genesis
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div data-aos="fade-right">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_gktniw.jpg-OJRlhv2oWBbujDWIPcVjYLE1zXPOnC.jpeg" alt="GlitchApe Origin" class="rounded-lg neon-border">
+                    </div>
+                    
+                    <div class="text-left" data-aos="fade-left">
+                        <div class="bg-gray-900/50 p-8 rounded-lg border border-cyan-500/30">
+                            <p class="text-lg mb-6 leading-relaxed">
+                                In the Neon Year 3033, apes uploaded into the blockchain to survive. 
+                                But something went wrong. They became GlitchApe: broken code, neon beasts, 
+                                rulers of the Solana streets.
+                            </p>
+                            <div class="text-center">
+                                <div class="glitch-text text-2xl font-bold" data-text="Half-code. Half-beast. All meme.">
+                                    Half-code. Half-beast. All meme.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fair Launch & Transparency Section -->
+    <section id="fair-launch" class="py-20 bg-gradient-to-b from-purple-900/20 to-black">
+        <div class="container mx-auto px-6">
+            <h2 class="glitch-font text-4xl md:text-6xl text-center mb-16 text-pink-400" data-aos="fade-up">
+                Fair Launch & Transparency
+            </h2>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Fair Launch Icon -->
+                    <div class="text-center" data-aos="fade-right">
+                        <div class="w-64 h-64 mx-auto mb-8 relative flex items-center justify-center bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-full border-4 border-cyan-400">
+                            <div class="text-6xl">🚀</div>
+                            <div class="absolute -bottom-4 bg-black px-4 py-2 rounded-lg border border-cyan-400">
+                                <span class="text-cyan-400 font-bold">100% Fair Launch</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fair Launch Details -->
+                    <div data-aos="fade-left">
+                        <div class="space-y-6">
+                            <div class="p-4 bg-gray-900/50 rounded-lg border border-cyan-500/30">
+                                <p class="text-gray-300">• GlitchApe ($GLA) launched fair on Pump.fun with a fixed supply of 1B tokens.</p>
+                            </div>
+                            
+                            <div class="p-4 bg-gray-900/50 rounded-lg border border-pink-500/30">
+                                <p class="text-gray-300">• No premint, no hidden allocations — every token started in the bonding curve.</p>
+                            </div>
+                            
+                            <div class="p-4 bg-gray-900/50 rounded-lg border border-green-500/30">
+                                <p class="text-gray-300">• Liquidity is automatically locked on Raydium once the bonding curve completes.</p>
+                            </div>
+
+                            <div class="p-4 bg-gray-900/50 rounded-lg border border-yellow-500/30">
+                                <p class="text-gray-300">• The team buys tokens on the open market just like the community.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 space-y-4">
+                            <div class="p-4 bg-gradient-to-r from-cyan-900/30 to-pink-900/30 rounded-lg border border-cyan-500/50">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold">Community Wallet:</span>
+                                    <span class="text-cyan-400">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-gradient-to-r from-pink-900/30 to-green-900/30 rounded-lg border border-pink-500/50">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold">Marketing Wallet:</span>
+                                    <span class="text-pink-400">Coming Soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-20 bg-gradient-to-b from-black to-green-900/20">
+        <div class="container mx-auto px-6">
+            <h2 class="glitch-font text-4xl md:text-6xl text-center mb-16 text-green-400" data-aos="fade-up">
+                Roadmap to the Neonverse
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-12">
+                    <!-- Phase 1 -->
+                    <div class="roadmap-phase pl-8 py-6" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-400">Phase 1 – Neon Genesis</h3>
+                        <p class="text-gray-300">Launch on Pump.fun, meme campaigns, Founding Glitchers.</p>
+                    </div>
+                    
+                    <!-- Phase 2 -->
+                    <div class="roadmap-phase pl-8 py-6" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold mb-4 text-pink-400">Phase 2 – Rise of the Apes</h3>
+                        <p class="text-gray-300">Community DAO, meme contests, Telegram/X growth.</p>
+                    </div>
+                    
+                    <!-- Phase 3 -->
+                    <div class="roadmap-phase pl-8 py-6" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-4 text-green-400">Phase 3 – The Upload</h3>
+                        <p class="text-gray-300">Launch GlitchApe NFT collection, Banana Fuel (🍌) airdrops.</p>
+                    </div>
+                    
+                    <!-- Phase 4 -->
+                    <div class="roadmap-phase pl-8 py-6" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Phase 4 – Banana Economy</h3>
+                        <p class="text-gray-300">Banana Fuel marketplace, NFT upgrades, DAO governance.</p>
+                    </div>
+                    
+                    <!-- Phase 5 -->
+                    <div class="roadmap-phase pl-8 py-6" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-400">Phase 5 – Neonverse</h3>
+                        <p class="text-gray-300">Metaverse avatars, cross-chain collabs, IRL merch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Whitepaper Section -->
+    <section id="whitepaper" class="py-20 bg-gradient-to-b from-green-900/20 to-black">
+        <div class="container mx-auto px-6">
+            <h2 class="glitch-font text-4xl md:text-6xl text-center mb-16 text-cyan-400" data-aos="fade-up">
+                Whitepaper Preview
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div data-aos="fade-right">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_xk2xb88.jpg-UG4KLvQjA1xb1iotpdaVgyvjrOn81b.jpeg" alt="GlitchApe Whitepaper" class="rounded-lg neon-border">
+                    </div>
+                    
+                    <div data-aos="fade-left">
+                        <div class="bg-gray-900/50 p-8 rounded-lg border border-cyan-500/30">
+                            <h3 class="text-2xl font-bold mb-6 text-pink-400">Key Points:</h3>
+                            <ul class="space-y-4 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">▶</span>
+                                    Meme + NFT hybrid utility
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-pink-400 mr-2">▶</span>
+                                    Community-driven Banana Fuel ecosystem
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">▶</span>
+                                    Long-term Neonverse vision
+                                </li>
+                            </ul>
+                            
+                            <button class="btn-glitch w-full mt-8 py-3 rounded-lg">
+                                Download Full Whitepaper
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Founders Section -->
+    <section class="py-20 bg-gradient-to-b from-black to-blue-900/20">
+        <div class="container mx-auto px-6">
+            <h2 class="glitch-font text-4xl md:text-6xl text-center mb-16 text-blue-400" data-aos="fade-up">
+                👾 Meet the Founders
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Founder 1 -->
+                    <div class="text-center" data-aos="fade-right">
+                        <div class="mb-6">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_shelsu.jpg-D5biv2FnOLOQHr45ZRzBI7l2HJRQs1.jpeg" alt="Collins Ifedi" class="founder-avatar mx-auto object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-2">Collins Ifedi</h3>
+                        <p class="text-lg text-gray-300">Co-Founder</p>
+                    </div>
+                    
+                    <!-- Founder 2 -->
+                    <div class="text-center" data-aos="fade-left">
+                        <div class="mb-6">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grok_image_xovr7km.jpg-icCJDZF22t7B2AduOfcEhSa8uXxFfB.jpeg" alt="Chris Parish" class="founder-avatar mx-auto object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Chris Parish</h3>
+                        <p class="text-lg text-gray-300">Co-Founder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team/Community Section -->
+    <section class="py-20 bg-gradient-to-b from-black to-purple-900/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="glitch-font text-4xl md:text-6xl mb-16 text-purple-400" data-aos="fade-up">
+                Join the Glitch Revolution
+            </h2>
+            
+            <div class="max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-xl text-gray-300 mb-8">
+                    Built by the community, for the community. Join the glitch revolution.
+                </p>
+                
+                <div class="flex justify-center space-x-4">
+                    <a href="https://twitter.com/GlitchApeCoin" target="_blank" class="btn-glitch px-8 py-3 rounded-lg hover:scale-105 transition-transform">
+                        Follow on Twitter/X
+                    </a>
+                    <a href="https://t.me/Glitch_Ape" target="_blank" class="btn-glitch px-8 py-3 rounded-lg hover:scale-105 transition-transform">
+                        Join Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black border-t border-cyan-500/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <div class="glitch-font text-3xl font-bold text-cyan-400 mb-4">GlitchApe</div>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-6">
+                    GlitchApe is a meme coin with no intrinsic value. Not financial advice.
+                </p>
+                
+                <div class="flex justify-center space-x-6">
+                    <a href="https://twitter.com/GlitchApeCoin" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">Twitter</a>
+                    <a href="https://t.me/Glitch_Ape" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">Telegram</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">Whitepaper</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">Pump.fun</a>
+                </div>
+            </div>
+            
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 GlitchApe. All rights reserved. Built in the Neonverse.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Auto-advance slideshow
+        setInterval(nextSlide, 3000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-triggered animations
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.cyber-grid');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Glitch effect on hover for buttons
+        document.querySelectorAll('.btn-glitch').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitch-1 0.3s ease-in-out';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.animation = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
